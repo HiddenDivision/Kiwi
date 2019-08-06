@@ -145,6 +145,8 @@ bot.on('message', msg=>{
 			//achannel.sendMessage(agif)
 		break;
 		case '-kick':
+			if(!msg.member.hasPermission("KICK_MEMBERS")) return msg.channel.sendMessage("You don't have the permission to kick someone!");
+			if(!msg.guild.me.hasPermission("KICK_MEMBERS")) return msg.channel.sendMessage("I don't have the allowed permission to kick someone!");
 			if(!args[1]) return msg.channel.sendMessage('Please specify a user!')
 			const tuser = msg.mentions.users.first();
 			const kreason = args.join(" ").slice(28);
@@ -175,6 +177,8 @@ bot.on('message', msg=>{
 			}
 		break;
 		case '-ban':
+			if(!msg.member.hasPermission("BAN_MEMBERS")) return msg.channel.sendMessage("You don't have the permission to ban someone!");
+			if(!msg.guild.me.hasPermission("BAN_MEMBERS")) return msg.channel.sendMessage("I don't have the allowed permission to ban someone!");
 			if(!args[1]) return msg.channel.sendMessage('Please specify a user!')
 			const user = msg.mentions.users.first();
 			const breason = args.join(" ").slice(27);
@@ -205,9 +209,9 @@ bot.on('message', msg=>{
 			}
 		break;
 		case '-unban':
-			if(!args[1]) return msg.channel.sendMessage('Please specify a user ID!')
 			if(!msg.member.hasPermission("BAN_MEMBERS")) return msg.channel.sendMessage("You don't have the permission to unban someone!");
 			if(!msg.guild.me.hasPermission("BAN_MEMBERS")) return msg.channel.sendMessage("I don't have the allowed permission to unban someone!");
+			if(!args[1]) return msg.channel.sendMessage('Please specify a user ID!')
 			msg.guild.unban(args[1])
 			const uembed = new RichEmbed()
 			.setTitle('User has been unbanned!')
