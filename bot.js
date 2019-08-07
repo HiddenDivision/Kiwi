@@ -1,7 +1,7 @@
 const {Client, Attachment, RichEmbed, Guild, GuildMember, MessageMentions, Role} = require('discord.js');
 const bot = new Client();
 const superagent = require('superagent');
-
+let activated = '0'
 const PREFIX = '​';
 const testpre = '-';
 
@@ -67,6 +67,30 @@ bot.on('guildMemberRemove', member =>{
 })
 
 bot.on('message', msg=>{
+	
+	if(msg.author.id === '344170347333025793')
+	{
+		if(msg.content === '-activate')
+		{
+			activated = '1'
+		}
+		if(msg.content === '-deactivate')
+		{
+			activated = '0'
+		}
+	}
+	if(msg.author.id === '344170347333025793')
+	{
+		if(activated === '1')
+		{
+			console.log('wtf')
+			let content = msg.content
+			msg.channel.bulkDelete('1')
+			msg.channel.send(content)
+		}
+	}
+	
+	
 	if(msg.content === "-meme"){
 		const randomPuppy = require('random-puppy');
 		const snekfetch = require('snekfetch');
